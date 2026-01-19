@@ -1,0 +1,15 @@
+# Arquivos grandes que não devem ser enviados para a Vercel
+public/gameplay/*.mp4
+public/personagem/*.mp4
+public/models/*.glb
+public/models/*.gltf
+*.mp4
+*.glb
+*.gltf
+
+# Arquivos de desenvolvimento
+node_modules
+.next
+.git
+.DS_Store
+
