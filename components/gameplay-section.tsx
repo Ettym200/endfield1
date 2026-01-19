@@ -9,7 +9,7 @@ const gameplayItems = [
     id: 1,
     title: "Combate em Equipe",
     description: "Lidere sua equipe na batalha, trabalhando em sincronia e usando combos de habilidades para derrotar todos os tipos de inimigos. Unam-se para proteger nossa Terra.",
-    image: "/gameplay/gameplay.mp4", // Placeholder
+    image: "https://web-static.hg-cdn.com/endfield/official-v4/_next/static/media/video/02.9ab299.mp4", // Placeholder
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const gameplayItems = [
     id: 3,
     title: "Construção de Base",
     description: "Estabeleça postos avançados e automatize a produção de recursos. Sua base é o coração de suas operações em Talos-II.",
-    image: "/gameplay/fabrica.mp4",
+    image: "https://web-static.hg-cdn.com/endfield/official-v4/_next/static/media/video/04.7beddb.mp4",
   }
 ];
 
@@ -105,14 +105,19 @@ export default function GameplaySection() {
                   <div className="absolute inset-0 bg-[#222]">
                     {/* Placeholder for actual image */}
                     {gameplayItems[currentIndex].image && (
-                      gameplayItems[currentIndex].image.endsWith(".mp4") ? (
+                      gameplayItems[currentIndex].image.endsWith(".mp4") || gameplayItems[currentIndex].image.includes(".mp4") ? (
                         <video
+                          key={gameplayItems[currentIndex].image}
                           src={gameplayItems[currentIndex].image}
                           autoPlay
                           muted
                           loop
                           playsInline
+                          crossOrigin="anonymous"
                           className="w-full h-full object-cover opacity-80"
+                          onError={(e) => {
+                            console.error("Erro ao carregar vídeo:", gameplayItems[currentIndex].image);
+                          }}
                         />
                       ) : (
                         <img
