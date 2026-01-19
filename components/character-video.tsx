@@ -23,12 +23,12 @@ export default function CharacterVideo({
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+    <div className="relative w-full flex items-end justify-center pointer-events-none">
       <TransparentVideo
         src={currentSrc!}
         loop={isLooping}
         onEnded={handleEnded}
-        className="w-full h-full"
+        className="w-full h-auto max-w-full"
       />
     </div>
   );

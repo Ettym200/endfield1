@@ -216,7 +216,7 @@ export default function TransparentVideo({
 
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${className} flex items-end`}>
       <video
         ref={videoRef}
         muted={muted}
@@ -228,7 +228,7 @@ export default function TransparentVideo({
       />
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain pointer-events-none"
+        className="w-full h-auto object-contain pointer-events-none"
       />
     </div>
   );

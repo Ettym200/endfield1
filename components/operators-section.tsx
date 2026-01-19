@@ -174,7 +174,7 @@ export default function OperatorsSection() {
   return (
     <section
       id="operadores"
-      className="relative min-h-screen bg-white text-black overflow-hidden flex items-center"
+      className="relative min-h-0 md:min-h-screen bg-white text-black overflow-hidden flex items-center py-4 md:py-0"
     >
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
@@ -191,7 +191,7 @@ export default function OperatorsSection() {
       </div>
 
       {/* Layout Container */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-10 h-screen flex flex-col md:flex-row gap-8 items-center justify-center">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10 h-auto md:h-screen flex flex-col md:flex-row gap-8 items-center justify-center">
 
         {/* Left Sidebar - Navigation */}
         <div className="hidden md:flex flex-col items-center gap-4 mr-12 z-20">
@@ -253,7 +253,7 @@ export default function OperatorsSection() {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 w-full relative grid grid-cols-1 md:grid-cols-2 gap-0 items-center">
+        <div className="flex-1 w-full relative grid grid-cols-1 md:grid-cols-2 gap-0 items-start md:items-center">
 
           {/* Info Column (Left overlap) */}
           <div className="relative z-20 md:pr-12 pointer-events-none md:pointer-events-auto">
@@ -339,7 +339,7 @@ export default function OperatorsSection() {
           </div>
 
           {/* Character Column (Right overlap) */}
-          <div className="relative h-[300px] -mt-8 md:mt-0 md:h-[800px] flex items-start justify-center md:items-end md:absolute md:right-[-20%] md:top-1/2 md:-translate-y-1/2 z-10 w-full pointer-events-none">
+          <div className="relative h-auto md:h-[800px] flex flex-col items-start justify-end md:items-end md:absolute md:right-[-20%] md:top-1/2 md:-translate-y-1/2 z-10 w-full pointer-events-none">
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -348,7 +348,7 @@ export default function OperatorsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.3 }}
-                className="w-full h-full relative"
+                className="w-full relative flex flex-col"
               >
                 {/* Yellow Background Element behind character */}
                 <div className="absolute top-0 right-0 w-[60%] h-full bg-[#FFE600] -skew-x-12 -z-10 mix-blend-multiply opacity-0 md:opacity-100" />
@@ -371,7 +371,7 @@ export default function OperatorsSection() {
                 {!is3D && (currentOperator as any).image2D ? (
                   /* 2D Image - when toggle is set to 2D */
                   <div
-                    className="w-full h-full flex items-start justify-center md:items-center md:transform md:scale-110 md:origin-bottom md:relative md:left-10 md:translate-x-24 md:translate-y-12"
+                    className="w-full h-full flex items-start justify-center md:items-center transform scale-150 sm:scale-[1.75] md:scale-110 origin-bottom md:relative md:left-10 md:translate-x-24 md:translate-y-12"
                     style={{
                       animation: isGlitching ? 'blink-glitch 0.4s steps(1) forwards' : 'none'
                     }}
@@ -385,7 +385,7 @@ export default function OperatorsSection() {
                 ) : (currentOperator as any).videoIntro ? (
                   /* Character Video - default 3D mode */
                   <div
-                    className="w-full h-full flex items-start justify-center md:items-center md:transform md:scale-125 md:origin-bottom md:relative md:left-10 md:translate-x-24 md:translate-y-24"
+                    className="w-full flex items-end justify-center md:items-center transform scale-[1.75] sm:scale-[2] md:scale-125 origin-bottom md:relative md:left-10 md:translate-x-24 md:translate-y-24"
                     style={{
                       animation: isGlitching ? 'blink-glitch 0.4s steps(1) forwards' : 'none'
                     }}
@@ -408,22 +408,22 @@ export default function OperatorsSection() {
                 )}
               </motion.div>
             </AnimatePresence>
+
+            {/* Decorative Bottom Bar - colada na base do vídeo */}
+            <div className="relative w-full h-12 bg-[#FFE600] z-20 flex items-center px-4 md:px-8 mt-0">
+              <div className="text-xs font-bold tracking-widest text-black">
+                SYSTEM STATUS: NORMAL // CONNECTION STABLE
+              </div>
+              <div className="ml-auto flex gap-2">
+                <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-black rounded-full animate-pulse delay-75" />
+                <div className="w-2 h-2 bg-black rounded-full animate-pulse delay-150" />
+              </div>
+            </div>
           </div>
 
         </div>
 
-      </div>
-
-      {/* Decorative Bottom Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-12 bg-[#FFE600] z-20 flex items-center px-8">
-        <div className="text-xs font-bold tracking-widest text-black">
-          SYSTEM STATUS: NORMAL // CONNECTION STABLE
-        </div>
-        <div className="ml-auto flex gap-2">
-          <div className="w-2 h-2 bg-black rounded-full animate-pulse" />
-          <div className="w-2 h-2 bg-black rounded-full animate-pulse delay-75" />
-          <div className="w-2 h-2 bg-black rounded-full animate-pulse delay-150" />
-        </div>
       </div>
 
     </section>
