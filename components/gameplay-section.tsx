@@ -52,9 +52,9 @@ export default function GameplaySection() {
     <section id="jogabilidade" className="relative min-h-screen bg-white overflow-hidden pb-20">
 
       {/* Top Scrolling Header */}
-      <div className="w-full overflow-hidden border-b border-black/10 py-4 mb-12">
+      <div className="w-full overflow-hidden border-b border-black/10 py-2 md:py-4 mb-2 md:mb-12">
         <motion.div
-          className="whitespace-nowrap text-[120px] md:text-[180px] leading-none font-black text-black tracking-tighter"
+          className="whitespace-nowrap text-[60px] md:text-[180px] leading-none font-black text-black tracking-tighter"
           animate={{ x: [0, -1000] }}
           transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
         >
@@ -62,11 +62,11 @@ export default function GameplaySection() {
         </motion.div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-16">
+      <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 md:gap-16">
 
         {/* Left Sidebar Info */}
-        <div className="w-full md:w-64 shrink-0 pt-8">
-          <div className="mb-8">
+        <div className="w-full md:w-64 shrink-0 pt-2 md:pt-8">
+          <div className="mb-4 md:mb-8">
             <div className="bg-gray-200 px-2 py-1 text-xs font-mono inline-block mb-2">
               GAMEPLAY
             </div>
@@ -74,7 +74,7 @@ export default function GameplaySection() {
           </div>
 
           {/* Decorative Tech Elements */}
-          <div className="space-y-4">
+          <div className="space-y-4 hidden md:block">
             <div className="grid grid-cols-6 gap-1 w-24 opacity-30">
               {[...Array(12)].map((_, i) => (
                 <div key={i} className={`w-full aspect-square ${i === 7 ? "bg-[#FFE600]" : "bg-black"}`} />
@@ -85,7 +85,7 @@ export default function GameplaySection() {
           </div>
 
           {/* Bottom Icon (Placeholder) */}
-          <div className="mt-24 w-16 h-20 bg-gray-200" />
+          <div className="mt-12 md:mt-24 w-16 h-20 bg-gray-200 hidden md:block" />
         </div>
 
         {/* Main Showcase */}
@@ -147,7 +147,7 @@ export default function GameplaySection() {
               />
 
               {/* Yellow Vertical Bar */}
-              <div className="absolute top-0 right-0 w-32 md:w-40 h-full bg-[#FFE600] flex flex-col items-center justify-start pt-40 border-l border-white/20 z-50">
+              <div className="hidden md:flex absolute top-0 right-0 w-32 md:w-40 h-full bg-[#FFE600] flex-col items-center justify-start pt-40 border-l border-white/20 z-50">
                 <div
                   className="vertical-rl text-black font-black text-3xl md:text-5xl tracking-widest uppercase whitespace-nowrap rotate-90 "
                 >

@@ -94,10 +94,10 @@ export default function MediaSection() {
       </div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-8 h-full relative z-20 flex flex-col justify-center pointer-events-none">
+      <div className="container mx-auto px-4 md:px-8 h-full relative z-20 flex flex-col justify-between md:justify-center pointer-events-none py-20 md:py-0">
 
         {/* Header */}
-        <div className="absolute top-12 left-8 md:left-12 pointer-events-auto">
+        <div className="relative md:absolute md:top-12 md:left-12 pointer-events-auto mb-8 md:mb-0">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 bg-white text-black flex items-center justify-center font-bold text-xs"
               style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%)" }}>
@@ -105,48 +105,50 @@ export default function MediaSection() {
             </div>
             <span className="text-white text-sm tracking-widest font-bold">INFORMATION</span>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase">
+          <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-white tracking-tighter uppercase">
             MÍDIA
           </h2>
         </div>
 
         {/* Main Info Display */}
-        <div className="mt-auto mb-32 md:mb-12 md:max-w-2xl pointer-events-auto">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="bg-white/20 px-2 py-1 text-xs text-white/80 uppercase backdrop-blur-sm">
-              {currentItem.type}
-            </span>
-            <span className="text-[#FFE600] font-mono text-sm font-bold">
-              {currentItem.date}
-            </span>
+        <div className="relative md:mt-auto md:mb-12 md:max-w-2xl pointer-events-auto flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <span className="bg-white/20 px-2 py-1 text-xs text-white/80 uppercase backdrop-blur-sm">
+                {currentItem.type}
+              </span>
+              <span className="text-[#FFE600] font-mono text-sm font-bold">
+                {currentItem.date}
+              </span>
+            </div>
+            <h3 className="text-xl sm:text-2xl md:text-4xl font-bold text-white leading-tight min-h-[3rem] md:min-h-0">
+              {currentItem.title}
+            </h3>
           </div>
-          <h3 className="text-2xl md:text-4xl font-bold text-white mb-8 leading-tight">
-            {currentItem.title}
-          </h3>
 
           <div className="flex items-center gap-4">
-            <button className="w-16 h-16 bg-[#FFE600] flex items-center justify-center text-black hover:bg-white transition-colors">
-              <Play className="fill-current w-6 h-6" />
+            <button className="w-12 h-12 md:w-16 md:h-16 bg-[#FFE600] flex items-center justify-center text-black hover:bg-white transition-colors shrink-0">
+              <Play className="fill-current w-5 h-5 md:w-6 md:h-6" />
             </button>
-            <button className="h-16 px-8 border border-white/20 bg-black/50 text-white hover:bg-white/10 transition-colors backdrop-blur-sm uppercase text-sm font-bold tracking-widest flex items-center gap-2">
-              <span className="w-1 h-4 bg-[#FFE600] mr-2" />
+            <button className="h-12 md:h-16 px-6 md:px-8 border border-white/20 bg-black/50 text-white hover:bg-white/10 transition-colors backdrop-blur-sm uppercase text-xs md:text-sm font-bold tracking-widest flex items-center gap-2 whitespace-nowrap">
+              <span className="w-1 h-3 md:w-1 md:h-4 bg-[#FFE600] mr-2" />
               Mais vídeos
             </button>
           </div>
         </div>
 
         {/* Shadcn Carousel */}
-        <div className="absolute bottom-12 right-0 md:right-12 pointer-events-auto">
+        <div className="relative md:absolute md:bottom-12 md:right-12 pointer-events-auto mt-8 md:mt-0 w-full md:w-auto">
           <Carousel
             opts={{ align: "start", loop: true }}
             setApi={setApi}
-            className="w-full max-w-[600px]"
+            className="w-full max-w-full md:max-w-[600px]"
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-3 md:-ml-4">
               {mediaItems.map((item, index) => {
                 const isActive = index === currentIndex;
                 return (
-                  <CarouselItem key={item.id} className="pl-4 basis-1/2 md:basis-1/3">
+                  <CarouselItem key={item.id} className="pl-3 md:pl-4 basis-1/2 md:basis-1/3 min-w-0">
                     <button
                       onClick={() => {
                         setCurrentIndex(index);
@@ -164,11 +166,11 @@ export default function MediaSection() {
                         {/* Overlay Text */}
                         <div className="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/90 to-transparent text-left">
                           {isActive && (
-                            <div className="text-[#FFE600] text-[10px] font-bold uppercase mb-1">
+                            <div className="text-[#FFE600] text-[8px] md:text-[10px] font-bold uppercase mb-1">
                               NOW PLAYING
                             </div>
                           )}
-                          <div className="text-white text-xs font-bold truncate">
+                          <div className="text-white text-[10px] md:text-xs font-bold truncate">
                             {item.title}
                           </div>
                         </div>
@@ -178,9 +180,9 @@ export default function MediaSection() {
                 );
               })}
             </CarouselContent>
-            <div className="absolute -top-12 right-0 flex gap-2">
-              <CarouselPrevious className="static translate-y-0 translate-x-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border-0" />
-              <CarouselNext className="static translate-y-0 translate-x-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border-0" />
+            <div className="absolute -top-10 right-0 flex gap-2">
+              <CarouselPrevious className="static translate-y-0 translate-x-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-white/20 border-0" />
+              <CarouselNext className="static translate-y-0 translate-x-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-white/20 border-0" />
             </div>
           </Carousel>
         </div>

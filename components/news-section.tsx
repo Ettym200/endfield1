@@ -95,154 +95,205 @@ export default function NewsSection() {
 
 
   return (
-    <section id="novidades" className="flex min-h-[700px] w-full bg-white pl-32">
-      {/* Left Sidebar (Yellow) */}
-      <div className="w-20 md:w-28 bg-[#FFE600] flex flex-col items-center justify-between py-8 relative border-r border-black/10 shrink-0">
+    <section id="novidades" className="flex w-full bg-white min-h-[700px]">
+      {/* Left Sidebar (Yellow) - Visible on mobile too as per print */}
+      <div className="w-12 md:w-28 bg-[#FFE600] flex flex-col items-center justify-between py-8 relative border-r border-black/10 shrink-0 sticky top-0 h-screen md:h-auto">
         {/* Top Icon/Structure - Tower graphic */}
-        <div className="w-full px-3">
+        <div className="w-full px-1 md:px-3">
           <div className="relative w-full aspect-[1/1.5]">
-            {/* Simple tower structure */}
             <img src="/tower.png" alt="Tower" className="w-full h-full object-contain" />
-
           </div>
         </div>
 
         {/* Vertical Text */}
         <div
-          className="text-2xl md:text-3xl font-black tracking-[0.2em] text-black/90 uppercase"
+          className="text-lg md:text-3xl font-black tracking-[0.2em] text-black/90 uppercase"
           style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
         >
           ENDFIELD
         </div>
 
         {/* Bottom Line */}
-        <div className="w-0.5 h-16 bg-black/70" />
+        <div className="w-0.5 h-10 md:h-16 bg-black/70" />
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 md:p-12 lg:p-16 flex flex-col">
+      <div className="flex-1 p-4 md:p-12 lg:p-16 flex flex-col w-full min-w-0">
         {/* Header */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2 text-gray-400 font-medium text-sm tracking-widest">
-            <span className="text-lg">↘</span> NOTICE
+          <div className="flex items-center gap-2 mb-2 text-gray-400 font-medium text-xs md:text-sm tracking-widest">
+            <span className="text-sm md:text-lg">↘</span> NOTICE
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase leading-none">
             NOVIDADES
           </h2>
         </div>
 
-        {/* Selected News Info */}
-        <div className="mb-6 border-b border-gray-200 pb-6">
-          <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
-            <span className="font-medium">// {currentNews.type}</span>
-            <span>{currentNews.date}</span>
-          </div>
-          <motion.h3
-            key={currentNews.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xl md:text-2xl font-bold text-black"
-          >
-            {currentNews.title}
-          </motion.h3>
-        </div>
+        {/* Mobile View: Vertical List */}
+        <div className="md:hidden flex flex-col gap-8">
+          {newsItems.slice(0, 3).map((item) => (
+            <div key={item.id} className="flex flex-col gap-3">
+              {/* Image Card */}
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden shadow-sm">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+                {/* Logo Badge (Optional, small) */}
+                <div className="absolute top-2 left-2 bg-black/80 px-1.5 py-0.5 flex items-center gap-1">
+                  <span className="text-white text-[8px] font-bold tracking-wide">ENDFIELD</span>
+                </div>
+                {item.subtitle && (
+                  <div className="absolute bottom-2 left-2 bg-[#FFE600] text-black px-2 py-0.5 text-[10px] font-bold uppercase">
+                    {item.subtitle}
+                  </div>
+                )}
+              </div>
 
-        {/* News Carousel */}
-        <div className="flex-1 relative">
-          <div className="flex gap-4 h-[300px] md:h-[350px]">
-            <AnimatePresence mode="popLayout">
-              {visibleItems.map((item, idx) => {
-                const isSelected = item.id === currentNews.id;
-                const isFirst = idx === 0;
+              {/* Info */}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-3 text-[10px] text-gray-500 font-medium uppercase">
+                  <span className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">{item.type}</span>
+                  <span>{item.date}</span>
+                </div>
+                <h3 className="text-sm font-bold text-black leading-tight">
+                  {item.title}
+                </h3>
+              </div>
+            </div>
+          ))}
 
-                return (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                      flex: isFirst && isSelected ? 2 : 1
-                    }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    onClick={() => handleCardClick(item.id)}
-                    className={`relative rounded-lg overflow-hidden cursor-pointer group ${isSelected ? "ring-2 ring-[#FFE600]" : ""
-                      }`}
-                  >
-                    {/* Background Image */}
-                    <div className="absolute inset-0">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    </div>
+          {/* Pagination/More for Mobile */}
+          <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
+            <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1">
+              <ChevronLeft className="w-4 h-4 text-gray-400" />
+              <span className="text-xs font-bold text-gray-600">1 / 5</span>
+              <ChevronRight className="w-4 h-4 text-gray-600" />
+            </div>
 
-                    {/* Logo Badge */}
-                    <div className="absolute top-4 left-4 z-10">
-                      <div className="bg-black/80 px-2 py-1 flex items-center gap-1">
-                        <div className="w-4 h-4 border border-white/50 flex items-center justify-center text-[8px] text-white font-bold">
-                          E
-                        </div>
-                        <span className="text-white text-[10px] font-bold tracking-wide">ENDFIELD</span>
-                      </div>
-                    </div>
-
-                    {/* Content Overlay */}
-                    <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 md:p-6">
-                      {item.subtitle && (
-                        <div className="mb-2">
-                          <span className="bg-[#FFE600] text-black px-2 py-1 text-xs font-bold uppercase">
-                            {item.subtitle}
-                          </span>
-                        </div>
-                      )}
-
-                      <h4 className={`font-black text-white uppercase leading-tight ${isFirst && isSelected ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
-                        }`}>
-                        {item.tagline || item.title}
-                      </h4>
-
-                      {/* Caption line */}
-                      <div className="mt-3 flex items-center gap-2 text-white/60 text-[10px]">
-                        <span>→ CAPTION</span>
-                      </div>
-                    </div>
-
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-[#FFE600]/0 group-hover:bg-[#FFE600]/10 transition-colors duration-300" />
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-
-          {/* Navigation Controls */}
-          <div className="flex items-center gap-3 mt-6">
-            {/* Arrow buttons */}
-            <button
-              onClick={handlePrev}
-              disabled={startIndex === 0}
-              className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={startIndex + visibleCount >= newsItems.length}
-              className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-600" />
-            </button>
-
-            {/* More Info Button */}
-            <button className="h-10 bg-[#222] text-white px-6 font-bold text-xs uppercase tracking-wider flex items-center gap-3 hover:bg-black transition-colors ml-2">
-              <div className="w-1 h-4 bg-[#FFE600]" />
+            <button className="h-8 bg-[#222] text-white px-4 font-bold text-[10px] uppercase tracking-wider flex items-center gap-2">
+              <div className="w-1 h-3 bg-[#FFE600]" />
               Mais Informações
             </button>
+          </div>
+        </div>
+
+        {/* Desktop View: Original Layout */}
+        <div className="hidden md:flex flex-col flex-1">
+          {/* Selected News Info */}
+          <div className="mb-6 border-b border-gray-200 pb-6">
+            <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+              <span className="font-medium">// {currentNews.type}</span>
+              <span>{currentNews.date}</span>
+            </div>
+            <motion.h3
+              key={currentNews.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-xl md:text-2xl font-bold text-black"
+            >
+              {currentNews.title}
+            </motion.h3>
+          </div>
+
+          {/* News Carousel */}
+          <div className="flex-1 relative">
+            <div className="flex gap-4 h-[300px] md:h-[350px]">
+              <AnimatePresence mode="popLayout">
+                {visibleItems.map((item, idx) => {
+                  const isSelected = item.id === currentNews.id;
+                  const isFirst = idx === 0;
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        flex: isFirst && isSelected ? 2 : 1
+                      }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      onClick={() => handleCardClick(item.id)}
+                      className={`relative rounded-lg overflow-hidden cursor-pointer group ${isSelected ? "ring-2 ring-[#FFE600]" : ""
+                        }`}
+                    >
+                      {/* Background Image */}
+                      <div className="absolute inset-0">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      </div>
+
+                      {/* Logo Badge */}
+                      <div className="absolute top-4 left-4 z-10">
+                        <div className="bg-black/80 px-2 py-1 flex items-center gap-1">
+                          <div className="w-4 h-4 border border-white/50 flex items-center justify-center text-[8px] text-white font-bold">
+                            E
+                          </div>
+                          <span className="text-white text-[10px] font-bold tracking-wide">ENDFIELD</span>
+                        </div>
+                      </div>
+
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 md:p-6">
+                        {item.subtitle && (
+                          <div className="mb-2">
+                            <span className="bg-[#FFE600] text-black px-2 py-1 text-xs font-bold uppercase">
+                              {item.subtitle}
+                            </span>
+                          </div>
+                        )}
+
+                        <h4 className={`font-black text-white uppercase leading-tight ${isFirst && isSelected ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
+                          }`}>
+                          {item.tagline || item.title}
+                        </h4>
+
+                        {/* Caption line */}
+                        <div className="mt-3 flex items-center gap-2 text-white/60 text-[10px]">
+                          <span>→ CAPTION</span>
+                        </div>
+                      </div>
+
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-[#FFE600]/0 group-hover:bg-[#FFE600]/10 transition-colors duration-300" />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center gap-3 mt-6">
+              {/* Arrow buttons */}
+              <button
+                onClick={handlePrev}
+                disabled={startIndex === 0}
+                className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={startIndex + visibleCount >= newsItems.length}
+                className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-600" />
+              </button>
+
+              {/* More Info Button */}
+              <button className="h-10 bg-[#222] text-white px-6 font-bold text-xs uppercase tracking-wider flex items-center gap-3 hover:bg-black transition-colors ml-2">
+                <div className="w-1 h-4 bg-[#FFE600]" />
+                Mais Informações
+              </button>
+            </div>
           </div>
         </div>
       </div>
