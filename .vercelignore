@@ -1,15 +1,18 @@
 # Arquivos grandes que não devem ser enviados para a Vercel
-public/gameplay/*.mp4
-public/personagem/*.mp4
+# Excluir apenas vídeos de gameplay que foram substituídos por URLs externas
+public/gameplay/gameplay.mp4
+public/gameplay/fabrica.mp4
+
+# Excluir modelos 3D grandes (não essenciais para o funcionamento)
 public/models/*.glb
 public/models/*.gltf
-*.mp4
-*.glb
-*.gltf
 
 # Arquivos de desenvolvimento
 node_modules
 .next
 .git
 .DS_Store
+
+# NOTA: Os vídeos de public/personagem/*.mp4 são ESSENCIAIS e devem ser incluídos
+# O arquivo public/gameplay/gameplay2.mp4 também é necessário
 
