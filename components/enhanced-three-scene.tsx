@@ -105,9 +105,8 @@ function ParticleField() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
+          args={[particles, 3]}
           count={2000}
-          array={particles}
-          itemSize={3}
         />
       </bufferGeometry>
       <pointsMaterial
